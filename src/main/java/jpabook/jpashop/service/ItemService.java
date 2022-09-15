@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class itemService {
+public class ItemService {
 
     private final ItemRepository itemRepository;
 
@@ -20,9 +20,19 @@ public class itemService {
         itemRepository.save(item);
     }
 
+    @Transactional
+    public void updateItem(Long id, String name, int price) {
+        Item item = itemRepository.findOne(id);
+        item.setName(name);
+        item.setPrice(price);
+    }
+
+
     public List<Item> fineItems(){
         return itemRepository.findAll();
     }
+
+
 
     public Item findOne(Long itemId){
         return itemRepository.findOne(itemId);
